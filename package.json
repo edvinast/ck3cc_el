@@ -1,0 +1,28 @@
+{
+  "name": "ck3cc",
+  "version": "0.0.1",
+  "description": "CK3 Crowd Control",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "start": "electron ."
+  },
+  "author": "saulens181",
+  "license": "ISC",
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "devDependencies": {
+    "electron": "^32.0.2",
+    "electron-builder": "^25.0.5"
+  },
+  "build": {
+    "appId": "saulens181.ck3cc",
+    "win": {
+      "target": "portable",
+      "icon": "icon.png"
+    }
+  },
+  "dependencies": {
+  }
+}
