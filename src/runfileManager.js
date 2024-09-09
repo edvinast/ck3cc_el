@@ -1,6 +1,6 @@
-const fs = require('node:fs');
+import { writeFileSync } from 'node:fs';
 
-const { generateEffect } = require("./effects")
+import { generateEffect } from "./effects.js";
 
 // todo: convert this into something more proper like a class
 // instead of reading top level vars, passing the path into the function every time, etc.
@@ -8,7 +8,7 @@ const { generateEffect } = require("./effects")
 
 let effectID = 0;
 
-function setRunfileToEffect(runfilePath, effectDetails) {
+export function setRunfileToEffect(runfilePath, effectDetails) {
   try {
     // set up effect
     const effectName = effectDetails.effect_name;
@@ -42,13 +42,9 @@ function setRunfileToEffect(runfilePath, effectDetails) {
     // save runfile
     // the game expects this file to be in UTF-8 and have a BOM
     // https://stackoverflow.com/questions/17879198/adding-utf-8-bom-to-string-blob/27975629#answer-27975629
-    fs.writeFileSync(runfilePath, '\ufeff' + runfile_template);
+    writeFileSync(runfilePath, '\ufeff' + runfile_template);
 
   } catch (err) {
     console.error(err);
   }
-}
-
-module.exports = {
-  setRunfileToEffect
 }

@@ -31,7 +31,7 @@ const effectDB = {
 }
 
 // see in python I just create an object that is constructed from a dict/json, and use the inbuilt Templates, etc...
-function generateEffect(effect_id, params) {
+export function generateEffect(effect_id, params) {
   // console.log(`Generating effect: ${effect_id}`);
   const effectSpec = effectDB[effect_id];
   const effectVars = effectSpec.vars;
@@ -68,8 +68,4 @@ function getRandomIntInclusive(min, max) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
-}
-
-module.exports = {
-  generateEffect
 }

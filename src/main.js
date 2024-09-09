@@ -1,7 +1,12 @@
-const { app, BrowserWindow, ipcMain } = require('electron/main');
-const path = require('node:path');
+import { app, BrowserWindow, ipcMain } from 'electron/main';
+import { join } from 'node:path';
 
-const { setRunfileToEffect } = require("./runfileManager")
+import { setRunfileToEffect } from "./runfileManager.js";
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
 
 // TODO: read these file paths from a settings file
 // TODO: automatically detect the location of files if we can since they have a pretty consistent location
@@ -24,7 +29,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: join(__dirname, 'preload.js')
     }
   })
 
