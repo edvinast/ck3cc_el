@@ -13,6 +13,7 @@ class Settings {
     } catch (err) {
       // assume the file is not available, set up default settings here
       loadData = {        
+        // TODO: Autodetect the locations of these files
         // logfilePath (currently unused) - the path to the error.log of the game.
         // We need to read over the file and filter it for our events.
         // Using file system watchers like chokidar or watchfiles(python) seemed to not be that effective here

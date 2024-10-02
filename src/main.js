@@ -1,26 +1,16 @@
-import { app, BrowserWindow, ipcMain } from 'electron/main';
-import { join } from 'node:path';
-
-import { setRunfileToEffect } from "./runfileManager.js";
-
 import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
-// TODO: read these file paths from a settings file
-// TODO: automatically detect the location of files if we can since they have a pretty consistent location
-// These should be in the /Documents/Paradox Interactive/Crusader Kings III/ folders unless they were relocated.
+import { app, BrowserWindow, ipcMain } from 'electron/main';
+import { join } from 'node:path';
 
-// logfilePath (currently unused) - the path to the error.log of the game.
-// We need to read over the file and filter it for our events.
-// Using file system watchers like chokidar or watchfiles(python) seemed to not be that effective here
-// The best thing available to us here will most likely be just polling the file every second or so.
-const logfilePath = "PATH_TO_DOCUMENTS_FOLDER/Documents/Paradox Interactive/Crusader Kings III/logs/error.log";
+import { setRunfileToEffect } from "./runfileManager.js";
+import { getTwitchAuth } from './twitch/twitchauthTokenReceiver.js';
+import { runTwitchChatListener } from './twitch/twitchChatListener.js';
 
-// runfilePath - the path to the file that is being ran by the game for effects.
-// This should most likely be fully managed by a dedicated class for it (currently in runfileManager.js)
-const runfilePath = "PATH_TO_DOCUMENTS_FOLDER/Documents/Paradox Interactive/Crusader Kings III/run/test.txt";
+import { settings } from './settings.js';
 
 let effectID = 0;
 
@@ -39,7 +29,16 @@ const createWindow = () => {
 app.whenReady().then(() => {
   // ipcMain.handle('ping', () => 'pong')
 
-  ipcMain.on("do-effect", (event, data) => setRunfileToEffect(runfilePath, data))
+  ipcMain.on("do-effect", (event, data) => setRunfileToEffect(settings.getSetting("runfilePath"), data))
+  // Testing placeholders TODO setting up a proper system and integrating it into the frontend
+  // setTimeout(() => {
+  //   getTwitchAuth()
+  // // })
+  // setTimeout(() => {
+  //   runTwitchChatListener()
+  // })
+
+  // console.log(settings.getSetting("test"))
 
   createWindow()
 

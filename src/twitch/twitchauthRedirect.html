@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="ROBOTS" content="NOFOLLOW">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript">
+      <!--
+      function loadfunc() {
+        var hash = document.location.hash.substr(1);
+        var hashParts = hash.split("&");
+        var access_token = null;
+        for (var i=0;i<hashParts.length;++i) {
+          var parameterParts = hashParts[i].split("=");
+          var key = parameterParts[0];
+          var value = parameterParts[1];
+          if (key == "access_token") {
+            access_token = value;
+          }
+        }
+        document.getElementById("javascript").className = "";
+        if (access_token != null) {
+          document.location.replace("http://localhost:51234/?token=" + access_token);
+        }
+        else {
+          document.getElementById("javascript").innerHTML = "Error: Access Token not found";
+        }
+      }
+    -->
+    </script>
+    <title>CK3 Crowd Control Twitch Auth</title>
+  </head>
+  <body onload="loadfunc()">
+    <noscript>
+      In order to authenticate, this page requires JavaScript in order to be able to send the token back to the system.
+      Please enable JavaScript and reload this page.
+    </noscript>
+    <p id="javascript" class="hide">Awaiting redirect?</p>
+  </body>
+</html>
