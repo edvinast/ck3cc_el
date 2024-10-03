@@ -27,6 +27,20 @@ const effectDB = {
         type: "parameter"
       }
     }
+  },
+  "change_sexuality": {
+    template: `set_sexuality = \${sexuality}`,
+    vars: {
+      "sexuality": {
+        type: "parameter_enum",
+        options: [
+          "asexual",
+          "homosexual",
+          "bisexual",
+          "heterosexual"
+        ]
+      }
+    }
   }
 }
 
@@ -47,6 +61,15 @@ export function generateEffect(effect_id, params) {
     const specVarDef = effectVars[specVar];
     if (specVarDef.type === "parameter") {
       variables[specVar] = params[specVar];
+    } else if (specVarDef.type === "parameter_enum") {
+      // TODO: Error system for invalid effects.
+      // for now an invalid effect will just pick the first option
+      // TODO: Aliases (array of arrays where first option in subarray is the real thing but the other things are aliases?)
+      if (specVarDef.options.includes(params[specVar])) {
+        variables[specVar] = params[specVar]
+      } else {
+        variables[specVar] = specVarDef.options[0];
+      }
     } else if (specVarDef.type === "random_int_range") {
       variables[specVar] = getRandomIntInclusive(specVarDef.min, specVarDef.max);
     }

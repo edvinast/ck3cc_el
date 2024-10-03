@@ -12,6 +12,8 @@ import { runTwitchChatListener } from './twitch/twitchChatListener.js';
 
 import { settings } from './settings.js';
 
+import Emittery from 'emittery';
+
 let effectID = 0;
 
 const createWindow = () => {
@@ -30,13 +32,26 @@ app.whenReady().then(() => {
   // ipcMain.handle('ping', () => 'pong')
 
   ipcMain.on("do-effect", (event, data) => setRunfileToEffect(settings.getSetting("runfilePath"), data))
+
+  const events = new Emittery();
+
+  events.on("do-event", event => {
+    // TODO figure out proper parsing etc.
+    if (event === "gold100") {
+      console.log("running event gold100!");
+      setRunfileToEffect(settings.getSetting("runfilePath"), { effect_name: "give_100_gold" });
+    } else {
+      console.log(`unrecognised event '${event}'`);
+    }
+
+  });
   // Testing placeholders TODO setting up a proper system and integrating it into the frontend
   // setTimeout(() => {
   //   getTwitchAuth()
   // // })
-  // setTimeout(() => {
-  //   runTwitchChatListener()
-  // })
+  setTimeout(() => {
+    runTwitchChatListener(events)
+  })
 
   // console.log(settings.getSetting("test"))
 
