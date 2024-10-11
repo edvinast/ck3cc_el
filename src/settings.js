@@ -9,7 +9,8 @@ class Settings {
     //attempt to load existing settings
     var loadData = {};
     try {
-      loadData = JSON.parse(readFileSync(filename))
+      const base_dir = process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR + "/" : ""  
+      loadData = JSON.parse(readFileSync(base_dir + filename))
     } catch (err) {
       // assume the file is not available, set up default settings here
       loadData = {        

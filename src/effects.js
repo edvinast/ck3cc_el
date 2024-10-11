@@ -1,17 +1,29 @@
 import { readdirSync, readFileSync } from 'node:fs';
+import { app } from 'electron/main';
 
-var effectDB = {};
-// init effectDB, probably needs separating out into a more structured constructor
-const effectFiles = readdirSync("effects/");
-for (const filename of effectFiles) {
-  const effectFile = JSON.parse(readFileSync(`effects/${filename}`))
-  effectDB = { ...effectDB, ...effectFile };
+class EffectDB {
+  constructor() {
+    const base_dir = process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR + "/" : ""
+
+    this.db = {}
+    const effectFiles = readdirSync(base_dir + "effects/");
+    for (const filename of effectFiles) {
+      const effectFile = JSON.parse(readFileSync(base_dir + `effects/${filename}`))
+      this.db = { ...this.db, ...effectFile };
+    }
+  }
+  
+  get(effect) {
+    return this.db[effect];
+  }
 }
+
+var effectDB = new EffectDB();
 
 // see in python I just create an object that is constructed from a dict/json, and use the inbuilt Templates, etc...
 export function generateEffect(effect_id, params) {
   // console.log(`Generating effect: ${effect_id}`);
-  const effectSpec = effectDB[effect_id];
+  const effectSpec = effectDB.get(effect_id);
   const effectVars = effectSpec.vars;
   // if there's nothing to substitute, the effect needs to changing.
   if (!effectVars) {

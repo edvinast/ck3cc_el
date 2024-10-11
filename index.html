@@ -11,14 +11,27 @@
       content="default-src 'self'; script-src 'self'"
     />
     <title>CK3 Crowd Control</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
   </head>
   <body>
-    <h1>Choose your effect:</h1>
-    <!-- Later these would be generated from available effects, parameters come from text/etc input, so on, so forth -->
-    <button id="button-1">Give 100 Gold</button>
-    <button id="button-2">Give 50 to 150 Gold</button>
-    <button id="button-3">Add Courtier "Ella"</button>
-    <button id="button-4">Add Courtier "Oomfie"</button>
+    <div id="top-bar">
+      <div id="top-bar-logo">Logo Goes Here!</div>
+      <div id="top-bar-notice">Alpha version, very liable to break, please don't yell at me</div>
+    </div>
+    <div id="middle">
+      <div id="middle-left">
+        <h1>Choose your effect:</h1>
+        <!-- Later these would be generated from available effects, parameters come from text/etc input, so on, so forth -->
+        <button id="button-1">Give 100 Gold</button>
+        <button id="button-2">Give 50 to 150 Gold</button>
+        <button id="button-3">Add Courtier "Ella"</button>
+        <button id="button-4">Add Courtier "Oomfie"</button>
+      </div>
+      <div id="middle-right">
+        log goes here
+        <!-- todo: log of events -->
+      </div>
+    </div>
   </body>
   <script src="src/renderer/renderer.js"></script>
 </html>
