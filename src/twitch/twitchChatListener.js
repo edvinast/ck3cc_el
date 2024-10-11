@@ -99,7 +99,7 @@ function handleWebSocketMessage(data) {
           if (chat_message.startsWith("!ck3cc ")) {
             console.log(`Command Received: ${chat_message.substring(7)}`)
             if (events) {
-              events.emit("do-event", chat_message.substring(7));
+              events.emit("do-event", { sender: `${data.payload.event.chatter_user_login}`, event: chat_message.substring(7) });
             }
           }
 

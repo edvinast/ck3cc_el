@@ -13,6 +13,7 @@ export function setRunfileToEffect(runfilePath, effectDetails) {
     // set up effect
     const effectName = effectDetails.effect_name;
     const effectParams = effectDetails.params;
+    const effectSender = effectDetails.sender ?? "unknown";
     const effect = generateEffect(effectName, effectParams);
 
     // compile runfile
@@ -26,13 +27,32 @@ export function setRunfileToEffect(runfilePath, effectDetails) {
       remove_global_variable = cc_semaphore_${oldEffectID} 
     }`
 
+    /*
+			send_interface_toast = { # or send_interface_message. toast is the one up top, message is the lower right corner
+				type = event_toast_effect_neutral
+        title = "Crowd Control Effect!"
+        desc = "Effect '${effectName}' was ran."
+      }
+      
+      so all that weirdness about the title working but the desc not was just because of the type variable, just gotta set that right
+      pretty sure once you do that there is no difference between send_interface_toast and send_interface_message
+      see common/messages
+
+      TODO: Separate out into its own template.
+    */
     const runfile_template = `if = {
 
       ${if_ran_check_template}
     
       ${effect}
       error_log = "CrowdControlMessage - Effect Was Ran!"
-    
+
+      send_interface_message = { 
+      	type = event_toast_text_neutral
+        title = "Crowd Control Effect!"
+        desc = "${effectSender} caused effect ${effectName}!"
+      }
+
       ${if_ran_set_template}
     
       ${cleanup_template}

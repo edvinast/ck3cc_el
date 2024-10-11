@@ -31,15 +31,25 @@ const createWindow = () => {
 app.whenReady().then(() => {
   // ipcMain.handle('ping', () => 'pong')
 
-  ipcMain.on("do-effect", (event, data) => setRunfileToEffect(settings.getSetting("runfilePath"), data))
+  ipcMain.on("do-effect", (event, data) => {
+    // console.log(`do-effect from frontend: ${data}`)
+    setRunfileToEffect(settings.getSetting("runfilePath"), data)
+  })
 
   const events = new Emittery();
 
-  events.on("do-event", event => {
+  events.on("do-event", event_data => {
+    const {sender, event} = event_data
     // TODO figure out proper parsing etc.
     if (event === "gold100") {
       console.log("running event gold100!");
-      setRunfileToEffect(settings.getSetting("runfilePath"), { effect_name: "give_100_gold" });
+      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, effect_name: "give_100_gold" });
+    } else if (event === "divorce") {
+      console.log("running event divorce!");
+      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, effect_name: "divorce" });
+    } else if (event.startsWith("sexuality")) {
+      console.log("running event sexuality!");
+      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, effect_name: "change_sexuality", params: { "sexuality": event.split(" ")[1]} });
     } else {
       console.log(`unrecognised event '${event}'`);
     }

@@ -1,4 +1,5 @@
-import { contextBridge, ipcRenderer } from 'electron'
+// As far as I know, this *has to be* a CommonJS file. do not convert to ES module.
+const { contextBridge, ipcRenderer } = require('electron')
 
 // contextBridge.exposeInMainWorld('versions', {
 //   node: () => process.versions.node,

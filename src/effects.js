@@ -41,6 +41,15 @@ const effectDB = {
         ]
       }
     }
+  },
+  "divorce": {
+    template: `if = {
+	limit = { exists = primary_spouse }
+	less_verbose_divorce_effect = {
+		DIVORCER = primary_spouse
+		DIVORCEE = root
+	}
+}`
   }
 }
 
