@@ -1,0 +1,40 @@
+{
+  "give_100_gold": {
+    "template": "add_gold = 100"
+  },
+  "give_50_to_150_gold": {
+    "template": "add_gold = ${amount}",
+    "vars": {
+      "amount": {
+        "type": "random_int_range",
+        "min": 50,
+        "max": 150
+      }
+    }
+  },
+  "add_courtier_with_name": {
+    "template": "create_character = { \n template = beautiful_peasant_character \n gender = female \n employer = root \n name = ${name} \n }",
+    "vars": {
+      "name": {
+        "type": "parameter"
+      }
+    }
+  },
+  "change_sexuality": {
+    "template": "set_sexuality = ${sexuality}",
+    "vars": {
+      "sexuality": {
+        "type": "parameter_enum",
+        "options": [
+          "asexual",
+          "homosexual",
+          "bisexual",
+          "heterosexual"
+        ]
+      }
+    }
+  },
+  "divorce": {
+    "template": "if = { \n limit = { \n exists = primary_spouse \n } \n less_verbose_divorce_effect = { \n DIVORCER = primary_spouse \n DIVORCEE = root \n } \n }"
+  }
+}

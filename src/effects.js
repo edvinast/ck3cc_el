@@ -1,56 +1,11 @@
+import { readdirSync, readFileSync } from 'node:fs';
 
-// temp, later implementation would read this from json files or the like
-// also this probably needs a way better thing for the "templates"
-const effectDB = {
-  "give_100_gold": {
-    template: `add_gold = 100`
-  },
-  "give_50_to_150_gold": {
-    template: `add_gold = \${amount}`,
-    vars: {
-      "amount": {
-        type: "random_int_range",
-        min: 50,
-        max: 150
-      }
-    }
-  },
-  "add_courtier_with_name": {
-    template: `create_character = {
-    template = beautiful_peasant_character
-    gender = female
-    employer = root
-    name = "\${name}"
-}`,
-    vars: {
-      "name": {
-        type: "parameter"
-      }
-    }
-  },
-  "change_sexuality": {
-    template: `set_sexuality = \${sexuality}`,
-    vars: {
-      "sexuality": {
-        type: "parameter_enum",
-        options: [
-          "asexual",
-          "homosexual",
-          "bisexual",
-          "heterosexual"
-        ]
-      }
-    }
-  },
-  "divorce": {
-    template: `if = {
-	limit = { exists = primary_spouse }
-	less_verbose_divorce_effect = {
-		DIVORCER = primary_spouse
-		DIVORCEE = root
-	}
-}`
-  }
+var effectDB = {};
+// init effectDB, probably needs separating out into a more structured constructor
+const effectFiles = readdirSync("effects/");
+for (const filename of effectFiles) {
+  const effectFile = JSON.parse(readFileSync(`effects/${filename}`))
+  effectDB = { ...effectDB, ...effectFile };
 }
 
 // see in python I just create an object that is constructed from a dict/json, and use the inbuilt Templates, etc...
