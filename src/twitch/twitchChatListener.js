@@ -17,8 +17,9 @@ var events;
 
 // TODO doublecheck we have the token
 export async function runTwitchChatListener(emitteryObject) {
+  const tokenValid = await validateToken();
+  if (!tokenValid) return;
   await getAccountId();
-  await validateToken();
 
   events = emitteryObject;
 
@@ -39,7 +40,7 @@ async function getAccountId() {
     let data = await response.json();
     console.error("/helix/users returned status code " + response.status);
     console.error(data);
-    process.exit(1);
+    // process.exit(1);
   } else {
     let data = await response.json();
     console.log(`Fetched user id: ${data.data[0].id}`)
@@ -47,7 +48,7 @@ async function getAccountId() {
   }
 }
 
-async function validateToken() {
+export async function validateToken() {
   let response = await fetch('https://id.twitch.tv/oauth2/validate', {
     method: 'GET',
     headers: {
@@ -59,10 +60,11 @@ async function validateToken() {
     let data = await response.json();
     console.error("Token is not valid. /oauth2/validate returned status code " + response.status);
     console.error(data);
-    process.exit(1);
+    return false;
   }
 
   console.log("Validated token.");
+  return true;
 }
 
 function startWebSocketClient() {

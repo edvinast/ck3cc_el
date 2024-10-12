@@ -19,19 +19,35 @@
       <div id="top-bar-notice">Alpha version, very liable to break, please don't yell at me</div>
     </div>
     <div id="middle">
-      <div id="middle-left">
-        <h1>Choose your effect:</h1>
-        <!-- Later these would be generated from available effects, parameters come from text/etc input, so on, so forth -->
-        <button id="button-1">Give 100 Gold</button>
-        <button id="button-2">Give 50 to 150 Gold</button>
-        <button id="button-3">Add Courtier "Ella"</button>
-        <button id="button-4">Add Courtier "Oomfie"</button>
+      <div id="middle-tablinks">
+        <button class="middle-tablink" data-tabname="middle-main">Main</button>
+        <button class="middle-tablink" data-tabname="middle-twitch">Twitch</button>
       </div>
-      <div id="middle-right">
-        log goes here
-        <!-- todo: log of events -->
+
+      <div id="middle-main" class="tabcontent active-tab">
+        <div id="middle-main-left">
+
+          <h1>Choose your effect:</h1>
+          <!-- Later these would be generated from available effects, parameters come from text/etc input, so on, so forth -->
+          <button id="button-1">Give 100 Gold</button>
+          <button id="button-2">Give 50 to 150 Gold</button>
+          <button id="button-3">Add Courtier "Ella"</button>
+          <button id="button-4">Add Courtier "Oomfie"</button>
+        </div>
+        <div id="middle-main-right">
+          log goes here
+          <!-- todo: log of events -->
+        </div>
+      </div>
+
+      <div id="middle-twitch" class="tabcontent">
+        Todo: add status text and the like. (do we have a token, is the listener running, etc.)
+        <button id="twitch-connect">Connect To Twitch</button>
+        <!-- <a target="_blank" href="https://example.com">log in here</a> -->
+        <button id="twitch-start-listener">Start Twitch Chat Listener</button>
       </div>
     </div>
   </body>
   <script src="src/renderer/renderer.js"></script>
+  <script src="src/renderer/twitch.js"></script>
 </html>

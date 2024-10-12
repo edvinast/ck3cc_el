@@ -7,12 +7,13 @@ import { app, BrowserWindow, ipcMain } from 'electron/main';
 import { join } from 'node:path';
 
 import { setRunfileToEffect } from "./runfileManager.js";
-import { getTwitchAuth } from './twitch/twitchauthTokenReceiver.js';
+import { getTwitchAuth, authLink as twitchAuthLink } from './twitch/twitchauthTokenReceiver.js';
 import { runTwitchChatListener } from './twitch/twitchChatListener.js';
 
 import { settings } from './settings.js';
 
 import Emittery from 'emittery';
+import { shell } from 'electron';
 
 let effectID = 0;
 
@@ -30,13 +31,21 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   // ipcMain.handle('ping', () => 'pong')
+  const events = new Emittery();
 
   ipcMain.on("do-effect", (event, data) => {
     // console.log(`do-effect from frontend: ${data}`)
     setRunfileToEffect(settings.getSetting("runfilePath"), data)
-  })
+  });
 
-  const events = new Emittery();
+  ipcMain.on("twitch-start-login", (event) => {
+    getTwitchAuth(events);
+    shell.openExternal(twitchAuthLink);
+  });
+
+  ipcMain.on("twitch-start-listener", (event) => {
+    runTwitchChatListener(events)
+  })
 
   events.on("do-event", event_data => {
     const {sender, event} = event_data
@@ -55,14 +64,6 @@ app.whenReady().then(() => {
     }
 
   });
-  // Testing placeholders TODO setting up a proper system and integrating it into the frontend
-  // setTimeout(() => {
-  //   getTwitchAuth()
-  // // })
-  setTimeout(() => {
-    runTwitchChatListener(events)
-  })
-
   // console.log(settings.getSetting("test"))
 
   createWindow()

@@ -13,3 +13,8 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('examples', {
   doEffect: (effectDetails) => ipcRenderer.send("do-effect", effectDetails)
 })
+
+contextBridge.exposeInMainWorld('twitch', {
+  startLoginProcess: () => ipcRenderer.send("twitch-start-login"),
+  startChatListener: () => ipcRenderer.send("twitch-start-listener")
+})
