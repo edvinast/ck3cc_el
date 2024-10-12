@@ -1,0 +1,1 @@
+﻿gui/ck3cc.gui = ck3cc_on_load

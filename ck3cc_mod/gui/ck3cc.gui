@@ -1,0 +1,29 @@
+﻿widget = {
+	# visible = "[And( Not( IsPauseMenuShown ), IsDefaultGUIMode )]"
+	size = { 100% 100% }
+	name = "ck3cc_on_load"
+
+	layer = bottom
+
+	flowcontainer = {
+
+		name = "ck3cc_button"
+		spacing = 3
+		ignoreinvisible = yes
+		allow_outside = yes
+		
+		position = { 20 20 }
+		dockable_button = {
+			visible = "yes"
+			size = { 150 24 }
+			raw_text = "CK3 Crowd Control"
+			onclick = "[ExecuteConsoleCommand('debug_mode')]"
+			tooltip = "Toggle debug_mode"
+			shortcut = "screenshot"
+			state = {
+				name = daily_tick
+				on_start = "[ExecuteConsoleCommand('run ck3cc.txt')]"
+			}
+		}
+	}
+}

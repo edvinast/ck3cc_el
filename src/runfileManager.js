@@ -68,3 +68,7 @@ export function setRunfileToEffect(runfilePath, effectDetails) {
     console.error(err);
   }
 }
+
+export function clearRunfile(runfilePath) {
+  writeFileSync(runfilePath, '\ufeff');
+}

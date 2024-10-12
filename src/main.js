@@ -6,7 +6,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 import { app, BrowserWindow, ipcMain } from 'electron/main';
 import { join } from 'node:path';
 
-import { setRunfileToEffect } from "./runfileManager.js";
+import { clearRunfile, setRunfileToEffect } from "./runfileManager.js";
 import { getTwitchAuth, authLink as twitchAuthLink } from './twitch/twitchauthTokenReceiver.js';
 import { runTwitchChatListener } from './twitch/twitchChatListener.js';
 
@@ -64,7 +64,9 @@ app.whenReady().then(() => {
     }
 
   });
-  // console.log(settings.getSetting("test"))
+
+  // Clear the runfile on restart
+  clearRunfile(settings.getSetting("runfilePath"));
 
   createWindow()
 

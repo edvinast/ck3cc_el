@@ -1,3 +1,4 @@
+import { app } from 'electron';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 // I want the settings file to be in the same location as the program
@@ -13,17 +14,17 @@ class Settings {
       loadData = JSON.parse(readFileSync(base_dir + filename))
     } catch (err) {
       // assume the file is not available, set up default settings here
-      loadData = {        
-        // TODO: Autodetect the locations of these files
+      loadData = {
+        // todo: set up changing these settings
         // logfilePath (currently unused) - the path to the error.log of the game.
         // We need to read over the file and filter it for our events.
         // Using file system watchers like chokidar or watchfiles(python) seemed to not be that effective here
         // The best thing available to us here will most likely be just polling the file every second or so.
-        logfilePath: "PATH_TO_DOCUMENTS_FOLDER/Documents/Paradox Interactive/Crusader Kings III/logs/error.log",
+        logfilePath: app.getPath("documents") + "/Paradox Interactive/Crusader Kings III/logs/error.log",
 
         // runfilePath - the path to the file that is being ran by the game for effects.
         // This should most likely be fully managed by a dedicated class for it (currently in runfileManager.js)
-        runfilePath: "PATH_TO_DOCUMENTS_FOLDER/Documents/Paradox Interactive/Crusader Kings III/run/test.txt"
+        runfilePath: app.getPath("documents") + "/Paradox Interactive/Crusader Kings III/run/ck3cc.txt"
       }
       writeFileSync(filename, JSON.stringify(loadData, null, "  "))
     }
