@@ -41,10 +41,14 @@
       </div>
 
       <div id="middle-twitch" class="tabcontent">
-        Todo: add status text and the like. (do we have a token, is the listener running, etc.)
-        <button id="twitch-connect">Connect To Twitch</button>
-        <!-- <a target="_blank" href="https://example.com">log in here</a> -->
-        <button id="twitch-start-listener">Start Twitch Chat Listener</button>
+        <div>
+          <button id="twitch-connect">Connect To Twitch</button>
+          <span id="twitch-auth-status"></span>  
+        </div>
+        <div>
+          <button id="twitch-start-listener">Start Twitch Chat Listener</button>
+          <span id="twitch-listener-status"></span>
+        </div>
       </div>
     </div>
   </body>

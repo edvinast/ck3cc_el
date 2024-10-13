@@ -17,7 +17,7 @@ var events;
 
 // TODO doublecheck we have the token
 export async function runTwitchChatListener(emitteryObject) {
-  const tokenValid = await validateToken();
+  const tokenValid = await validateToken(emitteryObject);
   if (!tokenValid) return;
   await getAccountId();
 
@@ -48,7 +48,7 @@ async function getAccountId() {
   }
 }
 
-export async function validateToken() {
+export async function validateToken(emitteryObject) {
   let response = await fetch('https://id.twitch.tv/oauth2/validate', {
     method: 'GET',
     headers: {
@@ -60,10 +60,12 @@ export async function validateToken() {
     let data = await response.json();
     console.error("Token is not valid. /oauth2/validate returned status code " + response.status);
     console.error(data);
+    if (emitteryObject) emitteryObject.emit("twitch-auth-validation", false);
     return false;
   }
 
   console.log("Validated token.");
+  if (emitteryObject) emitteryObject.emit("twitch-auth-validation", true);
   return true;
 }
 
@@ -142,5 +144,6 @@ async function registerEventSubListeners() {
   } else {
     const data = await response.json();
     console.log(`Subscribed to channel.chat.message [${data.data[0].id}]`);
+    events.emit("twitch-listener-status", "active");
   }
 }

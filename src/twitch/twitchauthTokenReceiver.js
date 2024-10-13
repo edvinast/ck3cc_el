@@ -19,8 +19,8 @@ export function getTwitchAuth(events) {
       // use/send over the token
       console.log("'token':", req.query.token);
       settings.setSetting("twitchAccessToken", req.query.token);
-      events.emit("twitch-token-received", req.query.token);
-      // need to set up system to send token back, like a method that can be awaited for the token?
+      // events.emit("twitch-token-received", req.query.token);
+      events.emit("twitch-auth-validation", true); // if we got here we presume the token is valid
       res.sendFile(path.join(__dirname, 'twitchauthReceived.html'))
     } else {
       res.sendFile(path.join(__dirname, 'twitchauthRedirect.html'))

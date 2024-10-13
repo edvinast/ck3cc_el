@@ -28,8 +28,8 @@ export function setRunfileToEffect(runfilePath, effectDetails) {
     }`
 
     /*
-			send_interface_toast = { # or send_interface_message. toast is the one up top, message is the lower right corner
-				type = event_toast_effect_neutral
+      send_interface_toast = { # or send_interface_message. toast is the one up top, message is the lower right corner
+        type = event_toast_effect_neutral
         title = "Crowd Control Effect!"
         desc = "Effect '${effectName}' was ran."
       }
@@ -48,7 +48,7 @@ export function setRunfileToEffect(runfilePath, effectDetails) {
       error_log = "CrowdControlMessage - Effect Was Ran!"
 
       send_interface_message = { 
-      	type = event_toast_text_neutral
+        type = event_toast_text_neutral
         title = "Crowd Control Effect!"
         desc = "${effectSender} caused effect ${effectName}!"
       }

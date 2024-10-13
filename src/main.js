@@ -7,13 +7,11 @@ import { app, BrowserWindow, ipcMain } from 'electron/main';
 import { join } from 'node:path';
 
 import { clearRunfile, setRunfileToEffect } from "./runfileManager.js";
-import { getTwitchAuth, authLink as twitchAuthLink } from './twitch/twitchauthTokenReceiver.js';
-import { runTwitchChatListener } from './twitch/twitchChatListener.js';
 
 import { settings } from './settings.js';
 
 import Emittery from 'emittery';
-import { shell } from 'electron';
+import { twitchSetup } from './twitch/setup.js';
 
 let effectID = 0;
 
@@ -27,25 +25,20 @@ const createWindow = () => {
   })
 
   win.loadFile('index.html')
+  return win;
 }
 
 app.whenReady().then(() => {
   // ipcMain.handle('ping', () => 'pong')
   const events = new Emittery();
+  const win = createWindow();
+
+  twitchSetup(events, win);
 
   ipcMain.on("do-effect", (event, data) => {
     // console.log(`do-effect from frontend: ${data}`)
     setRunfileToEffect(settings.getSetting("runfilePath"), data)
   });
-
-  ipcMain.on("twitch-start-login", (event) => {
-    getTwitchAuth(events);
-    shell.openExternal(twitchAuthLink);
-  });
-
-  ipcMain.on("twitch-start-listener", (event) => {
-    runTwitchChatListener(events)
-  })
 
   events.on("do-event", event_data => {
     const {sender, event} = event_data
@@ -67,8 +60,6 @@ app.whenReady().then(() => {
 
   // Clear the runfile on restart
   clearRunfile(settings.getSetting("runfilePath"));
-
-  createWindow()
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

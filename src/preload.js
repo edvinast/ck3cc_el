@@ -16,5 +16,8 @@ contextBridge.exposeInMainWorld('examples', {
 
 contextBridge.exposeInMainWorld('twitch', {
   startLoginProcess: () => ipcRenderer.send("twitch-start-login"),
-  startChatListener: () => ipcRenderer.send("twitch-start-listener")
+  startChatListener: () => ipcRenderer.send("twitch-start-listener"),
+
+  onTwitchAuthValidation: (callback) => ipcRenderer.on("twitch-auth-validation", (_event, value) => callback(value)),
+  onTwitchListenerStatus: (callback) => ipcRenderer.on("twitch-listener-status", (_event, value) => callback(value))
 })
