@@ -10,7 +10,7 @@ class Settings {
     //attempt to load existing settings
     var loadData = {};
     try {
-      const base_dir = process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR + "/" : ""  
+      const base_dir = process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR + "/" : "";
       loadData = JSON.parse(readFileSync(base_dir + filename))
     } catch (err) {
       // assume the file is not available, set up default settings here
@@ -26,7 +26,8 @@ class Settings {
         // This should most likely be fully managed by a dedicated class for it (currently in runfileManager.js)
         runfilePath: app.getPath("documents") + "/Paradox Interactive/Crusader Kings III/run/ck3cc.txt"
       }
-      writeFileSync(filename, JSON.stringify(loadData, null, "  "))
+      const base_dir = process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR + "/" : "";
+      writeFileSync(base_dir + filename, JSON.stringify(loadData, null, "  "))
     }
 
     this.data = loadData;
@@ -39,7 +40,8 @@ class Settings {
   setSetting(setting, value) {
     this.data[setting] = value;
 
-    writeFileSync(filename, JSON.stringify(this.data, null, "  "))
+    const base_dir = process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR + "/" : "";
+    writeFileSync(base_dir + filename, JSON.stringify(this.data, null, "  "))
   }
 
 }
