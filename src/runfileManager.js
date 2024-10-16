@@ -11,7 +11,7 @@ let effectID = 0;
 export function setRunfileToEffect(runfilePath, effectDetails) {
   try {
     // set up effect
-    const effectName = effectDetails.effect_name;
+    const effectName = effectDetails.effectName;
     const effectParams = effectDetails.params;
     const effectSender = effectDetails.sender ?? "unknown";
     const effect = generateEffect(effectName, effectParams);

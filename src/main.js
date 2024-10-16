@@ -12,6 +12,7 @@ import { settings } from './settings.js';
 
 import Emittery from 'emittery';
 import { twitchSetup } from './twitch/setup.js';
+import { effectSpecFromAlias } from './effects.js';
 
 let effectID = 0;
 
@@ -42,16 +43,10 @@ app.whenReady().then(() => {
 
   events.on("do-event", event_data => {
     const {sender, event} = event_data
-    // TODO figure out proper parsing etc.
-    if (event === "gold100") {
-      console.log("running event gold100!");
-      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, effect_name: "give_100_gold" });
-    } else if (event === "divorce") {
-      console.log("running event divorce!");
-      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, effect_name: "divorce" });
-    } else if (event.startsWith("sexuality")) {
-      console.log("running event sexuality!");
-      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, effect_name: "change_sexuality", params: { "sexuality": event.split(" ")[1]} });
+    // Currently, all the commands go via the aliases system.
+    const effectSpec = effectSpecFromAlias(event);
+    if (effectSpec) {
+      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, ...effectSpec });
     } else {
       console.log(`unrecognised event '${event}'`);
     }

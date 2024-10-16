@@ -1,6 +1,11 @@
 {
   "give_100_gold": {
-    "template": "add_gold = 100"
+    "template": "add_gold = 100",
+    "aliases": [
+      {
+        "options": [ "gold" ]
+      }
+    ]
   },
   "give_50_to_150_gold": {
     "template": "add_gold = ${amount}",
@@ -18,7 +23,13 @@
       "name": {
         "type": "parameter"
       }
-    }
+    },
+    "aliases": [
+      {
+        "params": { "name": "Oomfie" },
+        "options": [ "oomfie", "spawn_oomf" ]
+      }
+    ]
   },
   "change_sexuality": {
     "template": "set_sexuality = ${sexuality}",

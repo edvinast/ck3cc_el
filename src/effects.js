@@ -6,10 +6,28 @@ class EffectDB {
     const base_dir = process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR + "/" : ""
 
     this.db = {}
+    this.aliases = {}
+
     const effectFiles = readdirSync(base_dir + "effects/");
     for (const filename of effectFiles) {
-      const effectFile = JSON.parse(readFileSync(base_dir + `effects/${filename}`))
-      this.db = { ...this.db, ...effectFile };
+      if (filename.endsWith(".json")) {
+        const effectFile = JSON.parse(readFileSync(base_dir + `effects/${filename}`));
+        this.db = { ...this.db, ...effectFile };
+      }
+    }
+
+    for (const effectName in this.db) {
+      if (this.db[effectName].aliases) {
+        for (const alias of this.db[effectName].aliases) {
+          const alias_details = {
+            effectName, 
+            params: alias.params ?? {}
+          }
+          for (const alias_keyword of alias.options) {
+            this.aliases[alias_keyword] = alias_details;
+          }
+        }
+      }
     }
   }
   
@@ -20,11 +38,16 @@ class EffectDB {
 
 var effectDB = new EffectDB();
 
-// see in python I just create an object that is constructed from a dict/json, and use the inbuilt Templates, etc...
+export function effectSpecFromAlias(alias) {
+  const alias_spec = effectDB.aliases[alias];
+  if (!alias_spec) return null;
+  return alias_spec;
+}
+
 export function generateEffect(effect_id, params) {
-  // console.log(`Generating effect: ${effect_id}`);
+  console.log(`Generating effect: ${effect_id}`, params);
   const effectSpec = effectDB.get(effect_id);
-  const effectVars = effectSpec.vars;
+  const effectVars = effectSpec.params;
   // if there's nothing to substitute, the effect needs to changing.
   if (!effectVars) {
     return effectSpec.template;
