@@ -12,7 +12,7 @@ import { settings } from './settings.js';
 
 import Emittery from 'emittery';
 import { twitchSetup } from './twitch/setup.js';
-import { effectSpecFromAlias } from './effects.js';
+import { effectSpecFromAlias, getAliases } from './effects.js';
 
 let effectID = 0;
 
@@ -36,9 +36,14 @@ app.whenReady().then(() => {
 
   twitchSetup(events, win);
 
-  ipcMain.on("do-effect", (event, data) => {
+  ipcMain.handle("getAliases", () => {
+    return getAliases();
+  })
+
+  ipcMain.on("do-effect-from-alias", (event, alias) => {
     // console.log(`do-effect from frontend: ${data}`)
-    setRunfileToEffect(settings.getSetting("runfilePath"), data)
+    const effectSpec = effectSpecFromAlias(alias);
+    setRunfileToEffect(settings.getSetting("runfilePath"), { sender: "Interface", ...effectSpec })
   });
 
   events.on("do-event", event_data => {

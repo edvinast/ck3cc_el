@@ -38,6 +38,10 @@ class EffectDB {
 
 var effectDB = new EffectDB();
 
+export function getAliases() {
+  return Object.keys(effectDB.aliases);
+}
+
 export function effectSpecFromAlias(alias) {
   const alias_spec = effectDB.aliases[alias];
   if (!alias_spec) return null;

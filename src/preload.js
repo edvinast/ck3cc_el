@@ -10,8 +10,9 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 // basic questions on stack overflow my beloved
 // https://stackoverflow.com/questions/69410242/electron-js-cannot-get-button-to-perform-simple-actions-from-click
-contextBridge.exposeInMainWorld('examples', {
-  doEffect: (effectDetails) => ipcRenderer.send("do-effect", effectDetails)
+contextBridge.exposeInMainWorld('crowdControlMain', {
+  getAliases: () => ipcRenderer.invoke("getAliases"),
+  doEffectFromAlias: (alias) => ipcRenderer.send("do-effect-from-alias", alias)
 })
 
 contextBridge.exposeInMainWorld('twitch', {

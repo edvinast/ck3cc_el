@@ -1,30 +1,16 @@
-// const information = document.getElementById('info')
-// information.innerText = `This app is using Chrome (v${window.versions.chrome()}), Node.js (v${window.versions.node()}), and Electron (v${window.versions.electron()})`
 
-// const func = async () => {
-//   const response = await window.versions.ping()
-//   console.log(response) // prints out 'pong'
-// }
-
-// func()
-
-// very basic setup for now while I get the business logic working
-const buttonOne = document.getElementById("button-1")
-buttonOne.onclick = function () {
-  window.examples.doEffect({ effect_name: "give_100_gold" })
-}
-const buttonTwo = document.getElementById("button-2")
-buttonTwo.onclick = function () {
-  window.examples.doEffect({ effect_name: "give_50_to_150_gold" })
-}
-const buttonThree = document.getElementById("button-3")
-buttonThree.onclick = function () {
-  window.examples.doEffect({ effect_name: "add_courtier_with_name", params: { "name": "Ella" }})
-}
-const buttonFour = document.getElementById("button-4")
-buttonFour.onclick = function () {
-  window.examples.doEffect({ effect_name: "add_courtier_with_name", params: { "name": "Oomfie" }})
-}
+const mainButtonsContainer = document.getElementById("main-buttons");
+// const aliases = ["wip", "get", "real", "ones", "from", "ipc"];
+window.crowdControlMain.getAliases().then( aliases => {
+  for (const alias of aliases) {
+    const newButton = document.createElement("button");
+    newButton.textContent = alias;
+    newButton.onclick = (event) => {
+      window.crowdControlMain.doEffectFromAlias(alias);
+    };
+    mainButtonsContainer.appendChild(newButton);
+  }
+})
 
 // this is helper code for the tabs in the interface.
 const tabs = document.getElementsByClassName("middle-tablink");
