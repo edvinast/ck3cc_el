@@ -6,8 +6,17 @@ body {
 #top-bar {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  height: 50px;
+  height: 60px;
   background-color: #cccccc;
+}
+
+#top-bar-logo {
+  text-align: center;
+  padding: 20px 0;
+}
+
+#top-bar-notice {
+  margin-left: 5px;
 }
 
 #middle {

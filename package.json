@@ -1,6 +1,6 @@
 {
   "name": "ck3cc",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "CK3 Crowd Control",
   "main": "src/main.js",
   "type": "module",

@@ -10,7 +10,7 @@ The files themselves are a JSON file with an Object, with the key being the ID o
 
 | key | type | value |
 | --- | --- | --- |
-| `template` | string | The template for the effect. If the effect has no variables or parameters, it is the simple text of the effect. Variables can be defined by `${variable_name}`. |
+| `template` | string | The template for the effect, scoped to the player character. If the effect has no variables or parameters, it is the simple text of the effect. Variables can be defined by `${variable_name}`. Because paradox game script relies on newlines for separating effects, remember to specify them with `\n` within the template. |
 | `vars` | object | An object outlining the variable specification. Keys are variable names (as defined in the template) and the values are an object depending on the type of the variable. |
 | `aliases` | array | An array of objects outlining any aliases that the effect (with a given set of parameters) has. Main use is to allow easier use and customisation for an effect to be used as a chat command.|
 
