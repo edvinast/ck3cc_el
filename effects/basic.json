@@ -15,10 +15,15 @@
         "min": 50,
         "max": 150
       }
-    }
+    },
+    "aliases": [
+      {
+        "options": [ "gacha" ]
+      }
+    ]
   },
   "add_courtier_with_name": {
-    "template": "create_character = { \n template = beautiful_peasant_character \n gender = female \n employer = root \n name = ${name} \n }",
+    "template": "right_icon = scope:oomf \n create_character = { \n template = beautiful_peasant_character \n after_creation = { save_scope_as = oomf } \n gender = female \n employer = root \n name = ${name} \n }",
     "vars": {
       "name": {
         "type": "parameter"
@@ -43,9 +48,19 @@
           "heterosexual"
         ]
       }
-    }
+    },
+    "aliases": [
+      {
+        "options": [ "sex" ]
+      }
+    ]
   },
   "divorce": {
-    "template": "if = { \n limit = { \n exists = primary_spouse \n } \n less_verbose_divorce_effect = { \n DIVORCER = primary_spouse \n DIVORCEE = root \n } \n }"
+    "template": "if = { \n limit = { \n exists = primary_spouse \n } \n less_verbose_divorce_effect = { \n DIVORCER = primary_spouse \n DIVORCEE = root \n } \n }",
+    "aliases": [
+      {
+        "options": [ "divorce" ]
+      }
+    ]
   }
 }

@@ -1,27 +1,28 @@
 body {
-  background-color: #aaaaaa;
+  background-color: #131724;
   margin: 0px;
+  color:white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #top-bar {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 2fr;
   height: 60px;
-  background-color: #cccccc;
+  background-color: #6a6978;
 }
 
 #top-bar-logo {
   text-align: center;
   padding: 20px 0;
+  font-weight: bold;
 }
 
 #top-bar-notice {
-  margin-left: 5px;
-}
-
-#middle {
-  background-color: #aaaaaa;
-
+  margin-left: 20px;
+  padding: 15px 0;
+  color: rgb(191, 181, 190);
+  font-size: small;
 }
 
 #middle-main button {
@@ -34,10 +35,24 @@ body {
 }
 
 #middle-tablinks {
+  display: none;
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  /* border: 1px solid #ccc; */
+  background-color: #3c3847;
 }
+
+ul {
+  columns: 3;
+  list-style-type: none;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+
+li {
+  margin-bottom: 6px;
+  margin-right: 10px;
+}
+
 
 #middle-tablinks button {
   background-color: inherit;
@@ -47,20 +62,49 @@ body {
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+  border-right: 1px solid #131724;
+  border-radius: 0;
+  color: darkgrey;
+  margin-top: 0px;
+  text-transform: uppercase;
+  font-size: small;
 }
 
 #middle-tablinks button:hover {
-  background-color: #ddd;
+  background-color: #3f2240;
+  color: white;
 }
 
 #middle-tablinks button.active {
-  background-color: #ccc;
+  background-color: #131724;
+  color: white;
+}
+
+button {
+  border: 1px solid grey;
+  border-radius: 4px;
+  background-color: #1e2337;
+  color: lightgrey;
+  padding: 4px 10px;
+}
+
+button:hover {
+  background-color: #3f2240;
+  border: 1px solid purple;
+}
+
+#twitch-buttons button {
+  margin-top: 3px;
+}
+
+h2 {
+  font-size: small;
+  font-weight: lighter;
+  color: darkgrey;
 }
 
 .tabcontent {
   padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
 }
 
 .tabcontent:not(.active-tab) {

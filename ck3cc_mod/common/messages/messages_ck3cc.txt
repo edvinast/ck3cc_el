@@ -1,0 +1,66 @@
+﻿######################
+### CUSTOM MESSAGE
+######################
+chat_generic_bad = {
+	icon = "generic_bad_effect"
+	title = event_message_title
+	desc = event_message_effect
+	style = bad
+	message_filter_type = chat_message
+}
+chat_generic_bad_text = {
+	icon = "generic_bad_effect"
+	title = event_message_title
+	desc = event_message_text
+	style = bad
+	message_filter_type = chat_message
+}
+chat_generic_good = {
+	icon = "generic_good_effect"
+	title = event_message_title
+	desc = event_message_effect
+	style = good
+	message_filter_type = chat_message
+}
+chat_generic_good_text = {
+	icon = "generic_good_effect"
+	title = event_message_title
+	desc = event_message_text
+	style = good
+	message_filter_type = chat_message
+}
+chat_generic_neutral = {
+	icon = "generic_neutral_effect"
+	title = event_message_title
+	desc = event_message_effect
+	style = neutral
+	message_filter_type = chat_message
+}
+chat_generic_neutral_text = {
+	icon = "generic_neutral_effect"
+	title = event_message_title
+	desc = event_message_text
+	style = neutral
+	message_filter_type = chat_message
+}
+chat_generic_bad_with_text = {
+	icon = "generic_bad_effect"
+	title = event_message_title
+	desc = event_message_text_and_effect
+	style = bad
+	message_filter_type = chat_message
+}
+chat_generic_neutral_with_text = {
+	icon = "generic_neutral_effect"
+	title = event_message_title
+	desc = event_message_text_and_effect
+	style = neutral
+	message_filter_type = chat_message
+}
+chat_generic_good_with_text = {
+	icon = "generic_good_effect"
+	title = event_message_title
+	desc = event_message_text_and_effect
+	style = good
+	message_filter_type = chat_message
+}

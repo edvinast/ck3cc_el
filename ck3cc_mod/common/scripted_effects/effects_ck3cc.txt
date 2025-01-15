@@ -1,0 +1,36 @@
+﻿# the idea is to create a character for each chatter
+create_chatter_cc = {
+	# just in case we fail to pass the name, save the player as chatter, so we can pass *something* to the message
+	save_scope_as = chatter 
+	
+	# if the character doesn't exist yet, make one
+	if = {
+		limit = {
+			NOT = { has_variable = $NAME$ }
+		}
+
+		create_character = {
+			gender_female_chance = 50
+			age = root.age
+			faith = root.faith
+			culture = root.culture
+			employer = root
+			name = $NAME$
+			after_creation = {
+				save_scope_as = chatter
+			}
+		}
+
+		set_variable = {
+			name = $NAME$
+			value = scope:chatter
+		}
+	}
+	
+	# otherwise, reference their character
+	else = {
+		var:$NAME$ = {
+			save_scope_as = chatter
+		}
+	}
+}

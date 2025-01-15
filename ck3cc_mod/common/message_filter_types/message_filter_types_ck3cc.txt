@@ -1,0 +1,3 @@
+﻿chat_message = {
+	display = feed
+}

@@ -6,13 +6,13 @@
 	layer = bottom
 
 	flowcontainer = {
-
 		name = "ck3cc_button"
-		spacing = 3
+		spacing = 0
 		ignoreinvisible = yes
 		allow_outside = yes
-		
+		direction = vertical
 		position = { 20 20 }
+		
 		dockable_button = {
 			visible = "yes"
 			size = { 150 24 }
@@ -23,6 +23,53 @@
 			state = {
 				name = daily_tick
 				on_start = "[ExecuteConsoleCommand('run ck3cc.txt')]"
+			}
+		}
+
+		dockable_button = {
+			tooltip_visible = no
+			size = { 150 24 }
+			raw_text = "Start monitor"
+			onclick = "[PdxGuiWidget.TriggerAnimation('ck3cc_start')]"
+
+			state = {
+				name = ck3cc_start
+				duration = 0.5
+				next = ck3cc_loop
+				on_finish = "[ExecuteConsoleCommand('run ck3cc.txt')]"
+				on_finish = "[GetVariableSystem.Set('ck3cc', 'yes')]"
+			}
+
+			state = {
+				name = ck3cc_loop
+				duration = 0.5
+				next = ck3cc_start
+				on_finish = "[GetVariableSystem.Clear('ck3cc')]"
+			}
+		}
+
+		dockable_button = {
+			tooltip_visible = no
+			size = { 150 24 }
+			raw_text = "Stop monitor"
+			onclick = "[PdxGuiInterruptAllAnimations('ck3cc_start')]"
+			onclick = "[PdxGuiInterruptAllAnimations('ck3cc_loop')]"
+		}
+
+		dockable_button = {
+			size = { 150 24 }
+			raw_text = "Update"
+			onclick = "[ExecuteConsoleCommand('run ck3cc.txt')]"
+			shortcut = "confirm"
+		}
+
+		text_single = {
+			raw_text = "#v RUNNING"
+			visible = "[GetVariableSystem.Exists('ck3cc')]"
+			background = {
+				visible = "[Not(GetVariableSystem.Exists('ck3cc'))]"
+				using = Background_Area_Border
+				margin = { 5 0 }
 			}
 		}
 	}
