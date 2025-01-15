@@ -16,7 +16,18 @@
   <body>
     <div id="top-bar">
       <div id="top-bar-logo">CK3 Crowd Control</div>
-      <div id="top-bar-notice">This entire project is in an alpha version. It is very incomplete, is missing features, and very liable to break. It is not fit to be used in real scenarios. <br>Please report any issues to the project's github.</div>
+
+      <div id="twitch-buttons">
+        <div>
+          <button id="twitch-connect">Connect To Twitch</button>
+          <span id="twitch-auth-status"></span>  
+        </div>
+        <div>
+          <button id="twitch-start-listener">Start Twitch Chat Listener</button>
+          <span id="twitch-listener-status"></span>
+        </div>
+      </div>
+
     </div>
     <div id="middle">
       <div id="middle-tablinks">
@@ -27,26 +38,16 @@
       <div id="middle-main" class="tabcontent active-tab">
         <div id="middle-main-left">
 
-          <h2>Run Effect:</h2>
-          <div id="main-buttons">
-          </div>
+          <h2>Run effect:</h2>
+          <ul id="main-buttons">
+          </ul>
         </div>
         <div id="middle-main-right">
           <!-- todo: log of events -->
         </div>
       </div>
-
-      <div id="middle-twitch" class="tabcontent">
-        <div>
-          <button id="twitch-connect">Connect To Twitch</button>
-          <span id="twitch-auth-status"></span>  
-        </div>
-        <div>
-          <button id="twitch-start-listener">Start Twitch Chat Listener</button>
-          <span id="twitch-listener-status"></span>
-        </div>
-      </div>
     </div>
+    <div id="top-bar-notice">Alpha version! For testing and development only.<br>Please report any issues to the project's github.</div>
   </body>
   <script src="src/renderer/renderer.js"></script>
   <script src="src/renderer/twitch.js"></script>

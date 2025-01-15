@@ -100,10 +100,10 @@ function handleWebSocketMessage(data) {
           console.log(`MSG #${data.payload.event.broadcaster_user_login} <${data.payload.event.chatter_user_login}> ${data.payload.event.message.text}`);
 
           const chat_message = data.payload.event.message.text.trim();
-          if (chat_message.startsWith("!ck3cc ")) {
-            console.log(`Command Received: ${chat_message.substring(7)}`)
+          if (chat_message.startsWith("!")) {
+            console.log(`Command Received: ${chat_message.substring(1)}`)
             if (events) {
-              events.emit("do-event", { sender: `${data.payload.event.chatter_user_login}`, event: chat_message.substring(7) });
+              events.emit("do-event", { sender: `${data.payload.event.chatter_user_login}`, event: chat_message.substring(1) });
             }
           }
 

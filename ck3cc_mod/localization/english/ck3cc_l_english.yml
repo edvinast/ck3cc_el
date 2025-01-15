@@ -1,1 +1,3 @@
 ﻿l_english:
+ message_filter_chat_message: "Crowd Control chat message"
+ message_filter_chat_message_desc: "A Crowd Control command is received from chat"

@@ -40,25 +40,26 @@ export function setRunfileToEffect(runfilePath, effectDetails) {
 
       TODO: Separate out into its own template.
     */
+
+    // the effect is in the message, it will be auto-described by the game
     const runfile_template = `if = {
+    ${if_ran_check_template}
+  
+    error_log = "CrowdControlMessage - Effect Was Ran!"
 
-      ${if_ran_check_template}
-    
+    create_chatter_cc = { NAME = ${effectSender} }
+
+    send_interface_message = { 
+      type = chat_generic_neutral
+      title = "${effectSender} ${effectName}"
+      left_icon = scope:chatter
+      
       ${effect}
-      error_log = "CrowdControlMessage - Effect Was Ran!"
-
-      send_interface_message = { 
-        type = event_toast_text_neutral
-        title = "Crowd Control Effect!"
-        desc = "${effectSender} caused effect ${effectName}!"
-      }
-
-      ${if_ran_set_template}
-    
-      ${cleanup_template}
-    
     }
-    `
+
+    ${if_ran_set_template}
+    ${cleanup_template}
+}`
     // save runfile
     // the game expects this file to be in UTF-8 and have a BOM
     // https://stackoverflow.com/questions/17879198/adding-utf-8-bom-to-string-blob/27975629#answer-27975629

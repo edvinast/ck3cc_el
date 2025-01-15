@@ -3,12 +3,14 @@ const mainButtonsContainer = document.getElementById("main-buttons");
 // const aliases = ["wip", "get", "real", "ones", "from", "ipc"];
 window.crowdControlMain.getAliases().then( aliases => {
   for (const alias of aliases) {
+    const newLi = document.createElement("li");
     const newButton = document.createElement("button");
     newButton.textContent = alias;
     newButton.onclick = (event) => {
       window.crowdControlMain.doEffectFromAlias(alias);
     };
-    mainButtonsContainer.appendChild(newButton);
+    newLi.appendChild(newButton);
+    mainButtonsContainer.appendChild(newLi);
   }
 })
 

@@ -18,8 +18,8 @@ let effectID = 0;
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 400,
     webPreferences: {
       preload: join(__dirname, 'preload.js')
     }
@@ -53,7 +53,7 @@ app.whenReady().then(() => {
     if (effectSpec) {
       setRunfileToEffect(settings.getSetting("runfilePath"), { sender, ...effectSpec });
     } else {
-      console.log(`unrecognised event '${event}'`);
+      console.log(`unrecognized event '${event}'`);
     }
 
   });
