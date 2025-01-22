@@ -51,8 +51,9 @@ export function effectSpecFromAlias(alias) {
 export function generateEffect(effect_id, params) {
   console.log(`Generating effect: ${effect_id}`, params);
   const effectSpec = effectDB.get(effect_id);
-  const effectVars = effectSpec.params;
+  const effectVars = effectSpec.vars;
   // if there's nothing to substitute, the effect needs to changing.
+  // console.log(`effectSpec : ${JSON.stringify(effectSpec)}`);
   if (!effectVars) {
     return effectSpec.template;
   }
