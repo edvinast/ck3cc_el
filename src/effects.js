@@ -21,7 +21,8 @@ class EffectDB {
         for (const alias of this.db[effectName].aliases) {
           const alias_details = {
             effectName, 
-            params: alias.params ?? {}
+            params: alias.params ?? {},
+            argSpec: alias.arguments ?? []
           }
           for (const alias_keyword of alias.options) {
             this.aliases[alias_keyword] = alias_details;
@@ -48,7 +49,7 @@ export function effectSpecFromAlias(alias) {
   return alias_spec;
 }
 
-export function generateEffect(effect_id, params) {
+export function generateEffect(effect_id, params, effect_args = []) {
   console.log(`Generating effect: ${effect_id}`, params);
   const effectSpec = effectDB.get(effect_id);
   const effectVars = effectSpec.vars;

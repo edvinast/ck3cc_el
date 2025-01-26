@@ -36,4 +36,5 @@ Aliases are defined with an object containing two values
 | key | type | value|
 | --- | --- | --- |
 |`params`| object | An object of the parameters to be provided to the effect template. If there is no parameters to provide, this is to be an empty object or undefined. the keys are the names of the parameter names, while the value is the parameter value. |
-|`options`| array | An array of strings that act as aliases for the given effect and set of parameters. How any overlaps are treated is currently undefined |
+|`options`| array | An array of strings that act as aliases for the given effect and set of parameters. How any overlaps are treated is currently undefined. |
+|`arguments`| array | An array containing names of parameters. If an effect has arguments (i.e. `!effect 100`), the parameters specified are set to the value of the argument. Order defines which argument is which, so `[ "arg1", "arg2" ]` with the call `!effect 100 200` will set `arg1` to `100` and `arg2` to `200`. |

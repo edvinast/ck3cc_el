@@ -49,11 +49,16 @@ app.whenReady().then(() => {
   events.on("do-event", event_data => {
     const {sender, event} = event_data
     // Currently, all the commands go via the aliases system.
-    const effectSpec = effectSpecFromAlias(event);
+
+    // Get any arguments (e.g. "!thing 1")
+    // 0 is the prefix, the rest are the actual arguments
+    const eventArgs = event.split(/ +/);
+
+    const effectSpec = effectSpecFromAlias(eventArgs[0]);
     if (effectSpec) {
-      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, ...effectSpec });
+      setRunfileToEffect(settings.getSetting("runfilePath"), { sender, ...effectSpec, effectArgs: eventArgs });
     } else {
-      console.log(`unrecognized event '${event}'`);
+      console.log(`unrecognized event '${eventArgs[0]}'`);
     }
 
   });

@@ -14,6 +14,17 @@ export function setRunfileToEffect(runfilePath, effectDetails) {
     const effectName = effectDetails.effectName;
     const effectParams = effectDetails.params;
     const effectSender = effectDetails.sender ?? "unknown";
+    // process arguments into parameters
+    const effectArgsSpec = effectDetails.argSpec;
+    const effectArgs = effectDetails.effectArgs;
+
+    for (let index = 0; index < effectArgsSpec.length && (index + 1) < effectArgs.length; index++) {
+      const parameter = effectArgsSpec[index];
+      // Remember - args[0] is the name of the effect so the first in the spec is the second in the list and so on 
+      const value = effectArgs[index + 1];
+      effectParams[parameter] = value;
+    }
+
     const effect = generateEffect(effectName, effectParams);
 
     // compile runfile

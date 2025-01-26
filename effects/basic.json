@@ -3,7 +3,21 @@
     "template": "add_gold = 100",
     "aliases": [
       {
-        "options": [ "gold" ]
+        "options": [ "gold100" ]
+      }
+    ]
+  },
+  "give_specified_gold": {
+    "template": "add_gold = ${amount}",
+    "vars": {
+      "amount": {
+        "type": "parameter"
+      }
+    },
+    "aliases": [
+      {
+        "options": [ "gold" ],
+        "arguments": [ "amount" ]
       }
     ]
   },
